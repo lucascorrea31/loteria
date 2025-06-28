@@ -7,18 +7,37 @@ export class RafflesService implements OnModuleInit {
   private readonly raffles: Raffle[] = [];
 
   async onModuleInit(): Promise<void> {
-    console.log(`The RafflesService module has been initialized.`);
+    console.log(`The RafflesService Senna module has been initialized.`);
     await this.loadRaffles();
   }
 
   private async loadRaffles(): Promise<void> {
-    const list = await FileReader.readCSV('src/data/raffles.csv');
+    const list = await FileReader.readCSV('src/data/raffles_senna.csv');
     this.raffles.push(...list);
     this.raffles.sort((a, b) => a.id - b.id);
   }
 
   getRaffles(): Raffle[] {
     return this.raffles;
+  }
+
+  getHello(): string {
+    return `
+    <html5>
+    <body>
+    <h1>Raffles for Senna!</h1>
+    <ul>
+    <li><a href="/raffles-senna/most-repeated-numbers/6">most-repeated-numbers/n?</a></li>
+    <li><a href="/raffles-senna/most-linked-repeated-numbers">most-linked-repeated-numbers</a></li>
+    <li><a href="/raffles-senna/least-repeated-numbers/6">least-repeated-numbers/n?</a></li>
+    <li><a href="/raffles-senna/least-linked-repeated-numbers">least-linked-repeated-numbers</a></li>
+    <li><a href="/raffles-senna/compare-numbers">compare-numbers</a></li>
+    <li><a href="/raffles-senna/generate-numbers">generate-numbers</a></li>
+    <li><a href="/">Voltar</a></li>
+    </ul>
+    </body>
+    </html5>
+    `;
   }
 
   getMostRepeatedRaffleNumbers(

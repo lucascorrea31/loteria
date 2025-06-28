@@ -1,9 +1,17 @@
 import { Controller, Get, Header, Param, Query } from '@nestjs/common';
 import { RafflesService } from './raffles.service';
 
-@Controller('raffles')
+@Controller('raffles-senna')
 export class RafflesController {
   constructor(private readonly service: RafflesService) {}
+
+  @Get()
+  @Header('Access-Control-Allow-Origin', '*')
+  @Header('Content-Type', 'text/html')
+  @Header('Accept', 'text/html')
+  getHello(): string {
+    return this.service.getHello();
+  }
 
   @Get('most-repeated-numbers/:n?')
   @Header('Access-Control-Allow-Origin', '*')
