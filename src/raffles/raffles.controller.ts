@@ -5,20 +5,36 @@ import { RafflesService } from './raffles.service';
 export class RafflesController {
   constructor(private readonly service: RafflesService) {}
 
-  @Get('repeatest-numbers/:n?')
+  @Get('most-repeated-numbers/:n?')
   @Header('Access-Control-Allow-Origin', '*')
   @Header('Content-Type', 'application/json')
   @Header('Accept', 'application/json')
-  getRepeatestRaffleNumbers(@Param('n') n?: number | undefined): string {
-    return JSON.stringify(this.service.getRepeatestRaffleNumbers(n));
+  getMostRepeatedRaffleNumbers(@Param('n') n?: number | undefined): string {
+    return JSON.stringify(this.service.getMostRepeatedRaffleNumbers(n));
   }
 
-  @Get('repeatest-linked-numbers')
+  @Get('most-linked-repeated-numbers')
   @Header('Access-Control-Allow-Origin', '*')
   @Header('Content-Type', 'application/json')
   @Header('Accept', 'application/json')
-  getRepeatestLinkedRaffleNumbers(): string {
-    return JSON.stringify(this.service.getRepeatestLinkedRaffleNumbers());
+  getMostLinkedRepeatedRaffleNumbers(): string {
+    return JSON.stringify(this.service.getMostLinkedRepeatedRaffleNumbers());
+  }
+
+  @Get('least-repeated-numbers/:n?')
+  @Header('Access-Control-Allow-Origin', '*')
+  @Header('Content-Type', 'application/json')
+  @Header('Accept', 'application/json')
+  getLeastRepeatedRaffleNumbers(@Param('n') n?: number | undefined): string {
+    return JSON.stringify(this.service.getLeastRepeatedRaffleNumbers(n));
+  }
+
+  @Get('least-linked-repeated-numbers')
+  @Header('Access-Control-Allow-Origin', '*')
+  @Header('Content-Type', 'application/json')
+  @Header('Accept', 'application/json')
+  getLeastLinkedRepeatedRaffleNumbers(): string {
+    return JSON.stringify(this.service.getLeastLinkedRepeatedRaffleNumbers());
   }
 
   @Get('compare-numbers')
@@ -39,36 +55,175 @@ export class RafflesController {
     const json = {
       offset: offset,
       index: index,
-      linked: {
-        linkedRenew: this.service.testLinkedNumbers(index, offset, true),
-        linked: this.service.testLinkedNumbers(index, offset, false),
+      deepSeak: {
+        fixed: {
+          n6: this.service.testDeepSeakNumbersGenerator(
+            index,
+            offset,
+            6,
+            false,
+          ),
+          n7: this.service.testDeepSeakNumbersGenerator(
+            index,
+            offset,
+            7,
+            false,
+          ),
+          n8: this.service.testDeepSeakNumbersGenerator(
+            index,
+            offset,
+            8,
+            false,
+          ),
+          n9: this.service.testDeepSeakNumbersGenerator(
+            index,
+            offset,
+            9,
+            false,
+          ),
+        },
+        renew: {
+          n6: this.service.testDeepSeakNumbersGenerator(index, offset, 6, true),
+          n7: this.service.testDeepSeakNumbersGenerator(index, offset, 7, true),
+          n8: this.service.testDeepSeakNumbersGenerator(index, offset, 8, true),
+          n9: this.service.testDeepSeakNumbersGenerator(index, offset, 9, true),
+        },
       },
-      repeatest: {
-        repeatest6: this.service.testRepeatestNumbers(index, offset, 6, false),
-        repeatest7: this.service.testRepeatestNumbers(index, offset, 7, false),
-        repeatest8: this.service.testRepeatestNumbers(index, offset, 8, false),
-        // repeatest9: this.service.testRepeatestNumbers(index, offset, 9, false),
+      mostRepeated: {
+        linked: {
+          linkedRenew: this.service.testMostLinkedRepeatedNumbers(
+            index,
+            offset,
+            true,
+          ),
+          linked: this.service.testMostLinkedRepeatedNumbers(
+            index,
+            offset,
+            false,
+          ),
+        },
+        repeated: {
+          numbers6: this.service.testMostRepeatedNumbers(
+            index,
+            offset,
+            6,
+            false,
+          ),
+          numbers7: this.service.testMostRepeatedNumbers(
+            index,
+            offset,
+            7,
+            false,
+          ),
+          numbers8: this.service.testMostRepeatedNumbers(
+            index,
+            offset,
+            8,
+            false,
+          ),
+          // numbers9: this.service.testMostRepeatedNumbers(index, offset, 9, false),
+          numbers10: this.service.testMostRepeatedNumbers(
+            index,
+            offset,
+            10,
+            false,
+          ),
+        },
+        repeatedRenew: {
+          numbersRenew6: this.service.testMostRepeatedNumbers(
+            index,
+            offset,
+            6,
+            true,
+          ),
+          numbersRenew7: this.service.testMostRepeatedNumbers(
+            index,
+            offset,
+            7,
+            true,
+          ),
+          numbersRenew8: this.service.testMostRepeatedNumbers(
+            index,
+            offset,
+            8,
+            true,
+          ),
+          // numbersRenew9: this.service.testMostRepeatedNumbers(index, offset, 9, true),
+          numbersRenew10: this.service.testMostRepeatedNumbers(
+            index,
+            offset,
+            10,
+            true,
+          ),
+        },
       },
-      repeatestRenew: {
-        repeatestRenew6: this.service.testRepeatestNumbers(
-          index,
-          offset,
-          6,
-          true,
-        ),
-        repeatestRenew7: this.service.testRepeatestNumbers(
-          index,
-          offset,
-          7,
-          true,
-        ),
-        repeatestRenew8: this.service.testRepeatestNumbers(
-          index,
-          offset,
-          8,
-          true,
-        ),
-        // repeatestRenew9: this.service.testRepeatestNumbers(index, offset, 9, true),
+      leastRepeated: {
+        linked: {
+          linkedRenew: this.service.testLeastLinkedRepeatedNumbers(
+            index,
+            offset,
+            true,
+          ),
+          linked: this.service.testLeastLinkedRepeatedNumbers(
+            index,
+            offset,
+            false,
+          ),
+        },
+        repeated: {
+          numbers6: this.service.testLeastRepeatedNumbers(
+            index,
+            offset,
+            6,
+            false,
+          ),
+          numbers7: this.service.testLeastRepeatedNumbers(
+            index,
+            offset,
+            7,
+            false,
+          ),
+          numbers8: this.service.testLeastRepeatedNumbers(
+            index,
+            offset,
+            8,
+            false,
+          ),
+          // numbers9: this.service.testLeastRepeatedNumbers(index, offset, 9, false),
+          numbers10: this.service.testLeastRepeatedNumbers(
+            index,
+            offset,
+            10,
+            false,
+          ),
+        },
+        repeatedRenew: {
+          repeatedRenew6: this.service.testLeastRepeatedNumbers(
+            index,
+            offset,
+            6,
+            true,
+          ),
+          repeatedRenew7: this.service.testLeastRepeatedNumbers(
+            index,
+            offset,
+            7,
+            true,
+          ),
+          repeatedRenew8: this.service.testLeastRepeatedNumbers(
+            index,
+            offset,
+            8,
+            true,
+          ),
+          // repeatedRenew9: this.service.testLeastRepeatedNumbers(index, offset, 9, true),
+          repeatedRenew10: this.service.testLeastRepeatedNumbers(
+            index,
+            offset,
+            10,
+            true,
+          ),
+        },
       },
       random: {
         random6: this.service.testRandomNumbers(6, false),
@@ -85,5 +240,13 @@ export class RafflesController {
     };
 
     return JSON.stringify(json);
+  }
+
+  @Get('generate-numbers')
+  @Header('Access-Control-Allow-Origin', '*')
+  @Header('Content-Type', 'application/json')
+  @Header('Accept', 'application/json')
+  getGenerateNumbers(@Query('qnt') qnt?: number | undefined) {
+    return JSON.stringify(this.service.generateNumbers(qnt ?? 6));
   }
 }

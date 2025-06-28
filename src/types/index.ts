@@ -13,6 +13,8 @@ type AwardsObject = {
   raffle: number[];
   hits: number[];
   misses: number[];
+  id?: number;
+  date?: string;
 };
 
 type Awards = {
