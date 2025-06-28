@@ -18,9 +18,10 @@ type AwardsObject = {
 };
 
 type Awards = {
+  third?: AwardsObject[];
   fourth: AwardsObject[];
   fifth: AwardsObject[];
-  sixth: AwardsObject[];
+  sixth?: AwardsObject[];
   total: number;
 };
 
